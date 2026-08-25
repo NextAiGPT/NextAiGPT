@@ -23,17 +23,15 @@ const allowedOrigins = [
   'https://nextaigpt.github.io',
 ].filter(Boolean);
 
-app.use(cors(corsOptions));
-app.use(helmet());
-
-const corsOptions = {
-  origin(origin, callback) {
+app.use(cors({
+  origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
+
+    return callback(new Error(`CORS blocked: ${origin}`));
   },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: [
     'Origin',
@@ -42,9 +40,9 @@ const corsOptions = {
     'Accept',
     'Authorization',
   ],
-  credentials: true,
-};
+}));
 
+app.use(helmet());
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
