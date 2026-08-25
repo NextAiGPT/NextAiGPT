@@ -1,4 +1,4 @@
-import cors from 'cors';
+  import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -20,6 +20,7 @@ const allowedOrigins = [
   'https://ai-crm-sage.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://nextaigpt.github.io',
 ].filter(Boolean);
 
 app.use(helmet());
