@@ -16,24 +16,23 @@ import webhookRoutes from './routes/webhookRoutes.js';
 const app = express();
 
 app.use((req, res, next) => {
-  console.log('🔥 REQUEST:', req.method, req.originalUrl);
-  console.log('🌍 ORIGIN:', req.headers.origin);
+  res.header('Access-Control-Allow-Origin', 'https://nextaigpt.github.io');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.header(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, OPTIONS'
+  );
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
   next();
 });
-
-const allowedOrigins = [
-  'https://nextaigpt.github.io',
-  'https://ai-crm-sage.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
-];
-
-app.use(cors({
-  origin: 'https://nextaigpt.github.io',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
 
 app.use(helmet());
 app.use(express.json({ limit: '1mb' }));
