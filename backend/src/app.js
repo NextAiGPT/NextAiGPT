@@ -15,6 +15,12 @@ import webhookRoutes from './routes/webhookRoutes.js';
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log('🔥 REQUEST:', req.method, req.originalUrl);
+  console.log('🌍 ORIGIN:', req.headers.origin);
+  next();
+});
+
 const allowedOrigins = [
   env.frontendUrl,
   'https://ai-crm-sage.vercel.app',
