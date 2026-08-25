@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { LanguageProvider } from './context/LanguageContext';
 import AppShell from './layout/AppShell';
@@ -14,7 +14,7 @@ import "./auth.css";
 export default function App() {
   return (
     <LanguageProvider>
-      <BrowserRouter basename="/NextAiGPT">
+      <HashRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -25,7 +25,7 @@ export default function App() {
           <Route path="/ai-assistant" element={<ProtectedRoute><AppShell><AiAssistantPage /></AppShell></ProtectedRoute>} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </LanguageProvider>
   );
 }
