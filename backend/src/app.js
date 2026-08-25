@@ -22,30 +22,17 @@ app.use((req, res, next) => {
 });
 
 const allowedOrigins = [
-  env.frontendUrl,
+  'https://nextaigpt.github.io',
   'https://ai-crm-sage.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://nextaigpt.github.io',
-].filter(Boolean);
+];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error(`CORS blocked: ${origin}`));
-  },
+  origin: 'https://nextaigpt.github.io',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: [
-    'Origin',
-    'X-Requested-With',
-    'Content-Type',
-    'Accept',
-    'Authorization',
-  ],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(helmet());
