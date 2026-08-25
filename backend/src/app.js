@@ -51,7 +51,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use((req, res, next) => {
-  console.log('REQUEST:', req.method, req.path);
+  console.log('METHOD:', req.method);
+  console.log('PATH:', req.path);
   console.log('ORIGIN:', req.headers.origin);
   next();
 });
