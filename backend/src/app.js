@@ -23,6 +23,7 @@ const allowedOrigins = [
   'https://nextaigpt.github.io',
 ].filter(Boolean);
 
+app.use(cors(corsOptions));
 app.use(helmet());
 
 const corsOptions = {
@@ -44,13 +45,17 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
-
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, status: 'healthy' });
+});
+
+app.use((req, res, next) => {
+  console.log('REQUEST:', req.method, req.path);
+  console.log('ORIGIN:', req.headers.origin);
+  next();
 });
 
 app.use('/api/auth', authRoutes);
