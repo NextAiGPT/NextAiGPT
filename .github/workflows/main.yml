@@ -35,7 +35,7 @@ jobs:
       - name: Build React
         run: npm run build
         env:
-          VITE_API_URL: https://nextaigpt.onrender.com/
+          VITE_API_URL: https://nextaigpt.onrender.com
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
